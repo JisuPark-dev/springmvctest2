@@ -12,7 +12,7 @@ public class LogTestController {
     @RequestMapping("/log-test")
     public String logTest() {
         String name = "Spring";
-        log.trace("trace log={}11", name);
+        log.trace("trace log={}", name);
         log.debug("debug log={}22", name);
         log.info(" info log = {}33", name);
         log.warn("warn log={}44", name);
