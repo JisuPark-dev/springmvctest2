@@ -1,13 +1,13 @@
-package hello.springmvc.basic.requestmapping;
+package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -31,11 +31,32 @@ public class RequestParamController {
         log.info("age ={}", age);
         return "ok";
     }
+    @RequestMapping("/request-param-default")
+    public String requestParamDefault(@RequestParam(required = true, defaultValue = "guest") String username,
+                                 @RequestParam(required = false, defaultValue = "-1") int age) {
+        log.info("username ={}", username);
+        log.info("age ={}", age);
+        return "ok";
+    }
+    @RequestMapping("/request-param-map")
+    public String requestParamMap(@RequestParam Map<String, String> paramMap) {
+        log.info("username = {}, age = {}", paramMap.get("username"), paramMap.get("age"));
+        return "ok";
+    }
 
     @RequestMapping("/request-param-v")
     public String requestParamV3(String username, int age) {
         log.info("username ={}", username);
         log.info("age ={}", age);
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(HelloData helloData) {
+        String username = helloData.getUsername();
+        int age = helloData.getAge();
+        log.info("username = {}, age = {}", username, age);
         return "ok";
     }
 }
